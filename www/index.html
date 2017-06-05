@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<title>IRC log viewer</title>
+		<script src="https://unpkg.com/vue"></script>
+		<script src="https://unpkg.com/vue-material"></script>
+		<script src="https://unpkg.com/js-sha1"></script>
+		<script src="https://unpkg.com/vue-infinite-loading"></script>
+		<link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.css">
+<style>
+body {
+	font-face: 'DejaVu Sans Mono'
+}
+.name {
+	font-weight: bold;
+}
+#msg-list {
+	overflow: scroll;
+	height: 100%;
+}
+</style>
+	</head>
+	<body>
+		<div id="app">
+			<md-list class="md-dense" id="msg-list" style="overflow: auto;">
+				<infinite-loading
+					:on-infinite="loadTop"
+					ref="infiniteLoadingTop"
+					:distance="50"
+					direction="top"
+					v-if="scrollingEnabled">
+				</infinite-loading>
+				<md-list-item v-for="msg in msgs" :key="msg.id">
+					<span :id="msg.id">
+						<!--[{{msg.time}}]-->
+						<span v-if="msg.type === 'join'">
+							<em>The logger joined #{{msg.channel}}.</em>
+						</span>
+						<span v-else-if="msg.type === 'pubmsg'">
+							&lt;<span :style="{ color: userColour(msg.name) }" class="name">{{msg.name}}</span>&gt;
+							{{msg.message}}
+						</span>
+						<span v-else-if="msg.type === 'nick'">
+							<em>{{msg.name}} changed name to {{msg.message}}.</em>
+						</span>
+						<span v-else-if="msg.type === 'quit'">
+							<em>{{msg.name}} quit.</em>
+						</span>
+						<span v-else-if="msg.type === 'action'">
+							<em>{{msg.name}} {{msg.message}}</em>
+						</span>
+						<span v-else-if="msg.type === 'part'">
+							<em>{{msg.name}} has parted. ({{msg.message}})</em>
+						</span>
+						<span v-else-if="msg.type === 'topic'">
+							The topic changed to <em>{{msg.message}}</em>.
+						</span>
+					</span>
+				</md-list-item>
+				<infinite-loading :on-infinite="loadBottom"
+				                  ref="infiniteLoadingBottom"
+				                  :distance="50"
+				                  direction="bottom"
+													v-if="scrollingEnabled">
+				</infinite-loading>
+			</md-list>
+		</div>
+
+		<script src="index.js"></script>
+	</body>
+</html>

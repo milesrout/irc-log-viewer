@@ -4,7 +4,7 @@ Array.prototype.rslice = function(begin, end) {
 	return this.reverse().slice(begin, end).reverse();
 };
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = 'http://203.97.127.101:4000/';
 const DEFAULT_SPINNER_HEIGHT = 58.4;
 
 const COLOURS = ['#d96c6c', '#ffd580', '#a3d9b8', '#001433', '#944d99',

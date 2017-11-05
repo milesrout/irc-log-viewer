@@ -31,27 +31,26 @@ body {
 				</infinite-loading>
 				<md-list-item v-for="msg in msgs" :key="msg.id">
 					<span :id="msg.id">
-						<!--[{{msg.time}}]-->
-						<span v-if="msg.type === 'join'">
+						<span v-if="msg.type === 'JOIN'">
 							<em>The logger joined #{{msg.channel}}.</em>
 						</span>
-						<span v-else-if="msg.type === 'pubmsg'">
+						<span v-else-if="msg.type === 'PRIVMSG'">
 							&lt;<span :style="{ color: userColour(msg.name) }" class="name">{{msg.name}}</span>&gt;
 							{{msg.message}}
 						</span>
-						<span v-else-if="msg.type === 'nick'">
+						<span v-else-if="msg.type === 'NICK'">
 							<em>{{msg.name}} changed name to {{msg.message}}.</em>
 						</span>
-						<span v-else-if="msg.type === 'quit'">
+						<span v-else-if="msg.type === 'QUIT'">
 							<em>{{msg.name}} quit.</em>
 						</span>
-						<span v-else-if="msg.type === 'action'">
+						<span v-else-if="msg.type === 'ACTION'">
 							<em>{{msg.name}} {{msg.message}}</em>
 						</span>
-						<span v-else-if="msg.type === 'part'">
+						<span v-else-if="msg.type === 'PART'">
 							<em>{{msg.name}} has parted. ({{msg.message}})</em>
 						</span>
-						<span v-else-if="msg.type === 'topic'">
+						<span v-else-if="msg.type === 'TOPIC'">
 							The topic changed to <em>{{msg.message}}</em>.
 						</span>
 					</span>

@@ -1,4 +1,4 @@
-Vue.use(VueMaterial);
+Vue.use(VueMaterial.default);
 
 Array.prototype.rslice = function(begin, end) {
 	return this.reverse().slice(begin, end).reverse();
